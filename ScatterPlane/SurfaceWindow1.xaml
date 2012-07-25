@@ -1,0 +1,350 @@
+﻿<s:SurfaceWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:s="http://schemas.microsoft.com/surface/2008"
+                 xmlns:plane="clr-namespace:Plane;assembly=Plane"
+                 xmlns:local="clr-namespace:ScatterPlane"
+                 xmlns:Microsoft_Surface_Presentation_Generic="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" x:Class="ScatterPlane.SurfaceWindow1"
+                 Title="ScatterPlane">
+
+  <s:SurfaceWindow.Resources>
+    <ImageBrush x:Key="WindowBackground" Stretch="None" Opacity="0.6" ImageSource="pack://application:,,,/Resources/WindowBackground.jpg"/>
+
+    <Style x:Key="FlippingScatterViewItemStyle" TargetType="{x:Type s:ScatterViewItem}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+            <GradientStop Color="#FFA4B4BD" Offset="0"/>
+            <GradientStop Color="#FFDFE9EE" Offset="1"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="BorderBrush" Value="#33000000"/>
+      <Setter Property="Foreground" Value="#FF515151"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+      <Setter Property="MinWidth" Value="48"/>
+      <Setter Property="MinHeight" Value="48"/>
+      <Setter Property="plane:Plane.PlaneUseLights" Value="False" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type s:ScatterViewItem}">
+            <ControlTemplate.Resources>
+              <Storyboard x:Key="DeactivationTimeline">
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadow">
+                  <SplineThicknessKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="-4"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadow">
+                  <SplineDoubleKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadow">
+                  <SplineColorKeyFrame KeyTime="0:0:0.75" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="Sheen">
+                  <SplinePointKeyFrame KeySpline="0,0,0,0" KeyTime="0" Value="1.241,0.304"/>
+                  <SplinePointKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="-0.636,0.132"/>
+                  <SplinePointKeyFrame KeyTime="0:0:0.775" Value="-1.146,-0.035"/>
+                </PointAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="Sheen">
+                  <SplinePointKeyFrame KeySpline="0,0,0,0" KeyTime="0" Value="1.879,0.551"/>
+                  <SplinePointKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="0.018,0.291"/>
+                  <SplinePointKeyFrame KeyTime="0:0:0.775" Value="-0.492,0.124"/>
+                </PointAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="containerBack">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="1.03"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,0.148,0.933" KeyTime="0:0:0.75" Value="1.01"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="containerBack">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="1.03"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,0.148,0.933" KeyTime="0:0:0.75" Value="1.01"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadowBack">
+                  <SplineThicknessKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="-4"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadowBack">
+                  <SplineDoubleKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadowBack">
+                  <SplineColorKeyFrame KeyTime="0:0:0.75" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="SheenBack">
+                  <SplinePointKeyFrame KeySpline="0,0,0,0" KeyTime="0" Value="1.241,0.304"/>
+                  <SplinePointKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="-0.636,0.132"/>
+                  <SplinePointKeyFrame KeyTime="0:0:0.775" Value="-1.146,-0.035"/>
+                </PointAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="SheenBack">
+                  <SplinePointKeyFrame KeySpline="0,0,0,0" KeyTime="0" Value="1.879,0.551"/>
+                  <SplinePointKeyFrame KeySpline="0,0,0.15,0.93" KeyTime="0:0:0.75" Value="0.018,0.291"/>
+                  <SplinePointKeyFrame KeyTime="0:0:0.775" Value="-0.492,0.124"/>
+                </PointAnimationUsingKeyFrames>
+                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.IsPaddingClippingEnabled)" Storyboard.TargetName="plane">
+                  <DiscreteBooleanKeyFrame KeyTime="0:0:0.75" Value="True"/>
+                </BooleanAnimationUsingKeyFrames>
+              </Storyboard>
+              <Storyboard x:Key="ActivationTimeline">
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadow">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="25"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadow">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="0"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadow">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.45" Value="#14000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="Sheen">
+                  <SplinePointKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:1.1" Value="1.182,0.441"/>
+                </PointAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="Sheen">
+                  <SplinePointKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:1.1" Value="1.929,0.949"/>
+                </PointAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" Storyboard.TargetName="containerBack">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="1.01"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="1.03"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" Storyboard.TargetName="containerBack">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="1.01"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="1.03"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadowBack">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="25"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadowBack">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="0"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadowBack">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.45" Value="#14000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="SheenBack">
+                  <SplinePointKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:1.1" Value="1.182,0.441"/>
+                </PointAnimationUsingKeyFrames>
+                <PointAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="SheenBack">
+                  <SplinePointKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:1.1" Value="1.929,0.949"/>
+                </PointAnimationUsingKeyFrames>
+                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.IsPaddingClippingEnabled)" Storyboard.TargetName="plane">
+                  <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                </BooleanAnimationUsingKeyFrames>
+              </Storyboard>
+              <Storyboard x:Key="Flip">
+                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.IsPaddingClippingEnabled)" Storyboard.TargetName="plane" FillBehavior="Stop">
+                  <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                  <DiscreteBooleanKeyFrame KeyTime="0:0:0.3" Value="True"/>
+                </BooleanAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.RotationX)" Storyboard.TargetName="plane">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="90"/>
+                  <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="180"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="25"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="0"/>
+                  <SplineThicknessKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="-3"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.25" Value="#14000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.5" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="25"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="0"/>
+                  <SplineThicknessKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="-3"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.15" Value="#14000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.3" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+              </Storyboard>
+              <Storyboard x:Key="Unflip">
+                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.IsPaddingClippingEnabled)" Storyboard.TargetName="plane" FillBehavior="Stop">
+                  <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                  <DiscreteBooleanKeyFrame KeyTime="0:0:0.3" Value="True"/>
+                </BooleanAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(plane:Plane.RotationX)" Storyboard.TargetName="plane">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="180"/>
+                  <SplineDoubleKeyFrame KeyTime="0:0:0.15" Value="90"/>
+                  <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="25"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="0"/>
+                  <SplineThicknessKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="-3"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadow" FillBehavior="Stop">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.25" Value="#14000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.5" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.MaximumShadowOffset)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                  <SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="25"/>
+                  <SplineDoubleKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+                  <SplineThicknessKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.15" Value="0"/>
+                  <SplineThicknessKeyFrame KeySpline="0,0,1,0" KeyTime="0:0:0.3" Value="-3"/>
+                </ThicknessAnimationUsingKeyFrames>
+                <ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome.Color)" Storyboard.TargetName="shadowBack" FillBehavior="Stop">
+                  <SplineColorKeyFrame KeyTime="0" Value="#26000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.15" Value="#14000000"/>
+                  <SplineColorKeyFrame KeyTime="0:0:0.3" Value="#26000000"/>
+                </ColorAnimationUsingKeyFrames>
+              </Storyboard>
+            </ControlTemplate.Resources>
+            <plane:Plane x:Name="plane" Width="{TemplateBinding ActualWidth}"
+                         Height="{TemplateBinding ActualHeight}"
+                         RotationX="{TemplateBinding plane:Plane.PlaneRotationX}"
+                         RotationY="{TemplateBinding plane:Plane.PlaneRotationY}"
+                         RotationZ="{TemplateBinding plane:Plane.PlaneRotationZ}"
+                         RotationCenterX="{TemplateBinding plane:Plane.PlaneRotationCenterX}"
+                         RotationCenterY="{TemplateBinding plane:Plane.PlaneRotationCenterY}"
+                         RotationCenterZ="{TemplateBinding plane:Plane.PlaneRotationCenterZ}"
+                         FieldOfView="{TemplateBinding plane:Plane.PlaneFieldOfView}"
+                         UseLights="{TemplateBinding plane:Plane.PlaneUseLights}"
+                         CacheInvalidationThresholdMaximum="{TemplateBinding plane:Plane.PlaneCacheInvalidationThresholdMaximum}"
+                         CacheInvalidationThresholdMinimum="{TemplateBinding plane:Plane.PlaneCacheInvalidationThresholdMinimum}"
+                         FrontPadding="{TemplateBinding plane:Plane.PlaneFrontPadding}"
+                         BackPadding="{TemplateBinding plane:Plane.PlaneBackPadding}" RenderTransformOrigin="0.5,0.5">
+              <plane:Plane.Content>
+                <Grid x:Name="container" RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+                  <Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome x:Name="shadow" Color="#33000000" Margin="-4" ShadowVector="{TemplateBinding ShadowVector}"/>
+                  <Border x:Name="contentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                  </Border>
+                  <Rectangle x:Name="Sheen" Focusable="False" HorizontalAlignment="Stretch" IsHitTestVisible="False" Opacity="0.6" VerticalAlignment="Stretch">
+                    <Rectangle.Fill>
+                      <LinearGradientBrush EndPoint="-0.234,0.37" StartPoint="-0.981,-0.138">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="#33FFFFFF" Offset="0.52"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                      </LinearGradientBrush>
+                    </Rectangle.Fill>
+                  </Rectangle>
+                </Grid>
+              </plane:Plane.Content>
+              <plane:Plane.BackContent>
+                <Grid x:Name="containerBack" RenderTransformOrigin=".5,.5">
+                  <Grid.RenderTransform>
+                    <RotateTransform Angle="180" />
+                  </Grid.RenderTransform>
+                  <Microsoft_Surface_Presentation_Generic:SurfaceShadowChrome x:Name="shadowBack" Color="#33000000" Margin="-4" ShadowVector="{TemplateBinding ShadowVector}"/>
+                  <Border x:Name="contentBorderBack" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" RenderTransformOrigin=".5,.5">
+                    <Border.RenderTransform>
+                      <RotateTransform Angle="180" />
+                    </Border.RenderTransform>
+                    <ContentPresenter ContentTemplate="{TemplateBinding plane:Plane.PlaneBackContentTemplate}" Content="{TemplateBinding plane:Plane.PlaneBackContent}"/>
+                  </Border>
+                  <Rectangle x:Name="SheenBack" Focusable="False" HorizontalAlignment="Stretch" IsHitTestVisible="False" Opacity="0.6" VerticalAlignment="Stretch">
+                    <Rectangle.Fill>
+                      <LinearGradientBrush EndPoint="-0.234,0.37" StartPoint="-0.981,-0.138">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="#33FFFFFF" Offset="0.52"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                      </LinearGradientBrush>
+                    </Rectangle.Fill>
+                  </Rectangle>
+                </Grid>
+              </plane:Plane.BackContent>
+            </plane:Plane>
+            <ControlTemplate.Triggers>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="IsActive" Value="True"/>
+                  <Condition Property="ShowsActivationEffects" Value="True"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.EnterActions>
+                  <BeginStoryboard x:Name="ActivationTimeline_BeginStoryboard" Storyboard="{StaticResource ActivationTimeline}" />
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                  <BeginStoryboard x:Name="DeactivationTimeline_BeginStoryboard" Storyboard="{StaticResource DeactivationTimeline}"/>
+                </MultiTrigger.ExitActions>
+              </MultiTrigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="contentBorder">
+                  <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                      <GradientStop Color="#4CA4B4BD" Offset="0"/>
+                      <GradientStop Color="#4CDFE9EE" Offset="1"/>
+                    </LinearGradientBrush>
+                  </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="#A5333333"/>
+                <Setter Property="BorderBrush" Value="#33000000"/>
+              </Trigger>
+              <Trigger Property="local:ScatterFlip.IsFlipped" Value="True">
+                <Trigger.EnterActions>
+                  <BeginStoryboard Storyboard="{StaticResource Flip}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                  <BeginStoryboard Storyboard="{StaticResource Unflip}" />
+                </Trigger.ExitActions>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+  </s:SurfaceWindow.Resources>
+
+  <Grid Background="{StaticResource WindowBackground}" >
+    <s:ScatterView>
+      <!-- The width and height should be 25px more than you actually want. The Front/Back padding should be 25, plus any additional reduction.
+      This is needed so that the shadows look right during the flip. -->
+      <s:ScatterViewItem Center="150,150" Orientation="0" Width="375" Height="275"
+                          Style="{DynamicResource FlippingScatterViewItemStyle}"
+                          plane:Plane.PlaneFrontPadding="25"
+                          plane:Plane.PlaneBackPadding="25">
+        <s:ScatterViewItem.Content>
+          <s:SurfaceButton Content="i am the front" HorizontalAlignment="Center" VerticalAlignment="Center" ContactTapGesture="SurfaceButton_ContactTapGesture" />
+        </s:ScatterViewItem.Content>
+        <plane:Plane.PlaneBackContent>
+          <s:SurfaceButton Content="i am the back" HorizontalAlignment="Center" VerticalAlignment="Center" ContactTapGesture="SurfaceButton_ContactTapGesture" RenderTransformOrigin=".5,.5">
+            <s:SurfaceButton.RenderTransform>
+              <RotateTransform Angle="180" />
+            </s:SurfaceButton.RenderTransform>
+          </s:SurfaceButton>
+        </plane:Plane.PlaneBackContent>
+      </s:ScatterViewItem>
+
+      <s:ScatterViewItem Width="275" Height="375"
+                          Style="{DynamicResource FlippingScatterViewItemStyle}"
+                          plane:Plane.PlaneFrontPadding="50"
+                          plane:Plane.PlaneBackPadding="25">
+        <s:ScatterViewItem.Content>
+          <s:SurfaceButton Content="i am the front" HorizontalAlignment="Center" VerticalAlignment="Center" ContactTapGesture="SurfaceButton_ContactTapGesture" />
+        </s:ScatterViewItem.Content>
+        <plane:Plane.PlaneBackContent>
+          <s:SurfaceButton Content="i am the back" HorizontalAlignment="Center" VerticalAlignment="Center" ContactTapGesture="SurfaceButton_ContactTapGesture" RenderTransformOrigin=".5,.5">
+            <s:SurfaceButton.RenderTransform>
+              <RotateTransform Angle="180" />
+            </s:SurfaceButton.RenderTransform>
+          </s:SurfaceButton>
+        </plane:Plane.PlaneBackContent>
+      </s:ScatterViewItem>
+
+    </s:ScatterView>
+  </Grid>
+</s:SurfaceWindow>
